@@ -1,0 +1,114 @@
+<h2>Bạn muốn layout nào cho Task Tracker?</h2>
+<p class="subtitle">Chọn kiểu bố cục phù hợp nhất với cách bạn làm việc</p>
+
+<div class="cards">
+
+  <!-- Option A: Single Page Dashboard -->
+  <div class="card" data-choice="a" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div style="background:#1e1e2e;border-radius:6px;padding:10px;font-family:monospace;font-size:11px;color:#cdd6f4">
+        <div style="background:#313244;padding:6px 10px;border-radius:4px;margin-bottom:8px;color:#cba6f7;font-weight:bold">📋 Task Tracker</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:8px">
+          <div style="background:#45475a;padding:6px;border-radius:4px;text-align:center">
+            <div style="color:#a6e3a1;font-size:16px;font-weight:bold">5</div>
+            <div style="color:#bac2de;font-size:9px">Đang làm</div>
+          </div>
+          <div style="background:#45475a;padding:6px;border-radius:4px;text-align:center">
+            <div style="color:#f38ba8;font-size:16px;font-weight:bold">2</div>
+            <div style="color:#bac2de;font-size:9px">Quá hạn</div>
+          </div>
+          <div style="background:#45475a;padding:6px;border-radius:4px;text-align:center">
+            <div style="color:#89b4fa;font-size:16px;font-weight:bold">12</div>
+            <div style="color:#bac2de;font-size:9px">Hoàn thành</div>
+          </div>
+        </div>
+        <div style="background:#313244;padding:6px;border-radius:4px;margin-bottom:4px">
+          <div style="color:#f38ba8;font-size:9px">🔴 [HIGH] Báo cáo Q2 — hết hạn hôm nay</div>
+        </div>
+        <div style="background:#313244;padding:6px;border-radius:4px;margin-bottom:4px">
+          <div style="color:#fab387;font-size:9px">🟠 [MED] Review code PR #42</div>
+        </div>
+        <div style="background:#313244;padding:6px;border-radius:4px">
+          <div style="color:#a6e3a1;font-size:9px">🟢 [LOW] Cập nhật tài liệu</div>
+        </div>
+        <div style="margin-top:8px;display:flex;gap:4px">
+          <div style="background:#cba6f7;color:#1e1e2e;padding:3px 8px;border-radius:3px;font-size:9px">+ Thêm task</div>
+          <div style="background:#45475a;color:#cdd6f4;padding:3px 8px;border-radius:3px;font-size:9px">Lọc</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A — Single Page Dashboard</h3>
+      <p>Tất cả trên một trang: stats, danh sách task, và form thêm task. Nhanh, gọn, không cần điều hướng.</p>
+    </div>
+  </div>
+
+  <!-- Option B: Sidebar Navigation -->
+  <div class="card" data-choice="b" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div style="background:#1e1e2e;border-radius:6px;padding:10px;font-family:monospace;font-size:11px;color:#cdd6f4;display:flex;gap:8px">
+        <div style="background:#181825;padding:8px;border-radius:4px;min-width:80px">
+          <div style="color:#cba6f7;font-weight:bold;margin-bottom:8px;font-size:10px">📋 Tracker</div>
+          <div style="color:#a6e3a1;padding:3px;border-radius:3px;background:#313244;margin-bottom:3px;font-size:9px">🏠 Dashboard</div>
+          <div style="color:#bac2de;padding:3px;margin-bottom:3px;font-size:9px">📝 Tasks</div>
+          <div style="color:#bac2de;padding:3px;margin-bottom:3px;font-size:9px">📊 Báo cáo</div>
+          <div style="color:#bac2de;padding:3px;margin-bottom:3px;font-size:9px">🔔 Nhắc nhở</div>
+          <div style="color:#bac2de;padding:3px;font-size:9px">⚙️ Cài đặt</div>
+        </div>
+        <div style="flex:1">
+          <div style="color:#cba6f7;font-weight:bold;margin-bottom:6px;font-size:10px">Dashboard</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-bottom:6px">
+            <div style="background:#313244;padding:5px;border-radius:4px;text-align:center">
+              <div style="color:#a6e3a1;font-size:14px;font-weight:bold">5</div>
+              <div style="color:#bac2de;font-size:8px">Đang làm</div>
+            </div>
+            <div style="background:#313244;padding:5px;border-radius:4px;text-align:center">
+              <div style="color:#f38ba8;font-size:14px;font-weight:bold">2</div>
+              <div style="color:#bac2de;font-size:8px">Quá hạn</div>
+            </div>
+          </div>
+          <div style="background:#313244;padding:5px;border-radius:4px;margin-bottom:3px;font-size:8px;color:#f38ba8">🔴 Báo cáo Q2 — hôm nay</div>
+          <div style="background:#313244;padding:5px;border-radius:4px;font-size:8px;color:#fab387">🟠 Review PR #42</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B — Sidebar Navigation (Khuyến nghị)</h3>
+      <p>Sidebar cố định với các section: Tasks, Báo cáo, Nhắc nhở, Cài đặt. Dễ mở rộng thêm tính năng sau này.</p>
+    </div>
+  </div>
+
+  <!-- Option C: Kanban Board -->
+  <div class="card" data-choice="c" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div style="background:#1e1e2e;border-radius:6px;padding:10px;font-family:monospace;font-size:11px;color:#cdd6f4">
+        <div style="color:#cba6f7;font-weight:bold;margin-bottom:8px;font-size:10px">📋 Task Tracker — Kanban</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px">
+          <div>
+            <div style="color:#f38ba8;font-size:9px;font-weight:bold;margin-bottom:4px">🔴 TODO (3)</div>
+            <div style="background:#313244;padding:5px;border-radius:3px;margin-bottom:3px;font-size:8px">Báo cáo Q2</div>
+            <div style="background:#313244;padding:5px;border-radius:3px;margin-bottom:3px;font-size:8px">Deploy staging</div>
+            <div style="background:#313244;padding:5px;border-radius:3px;font-size:8px">Fix bug login</div>
+          </div>
+          <div>
+            <div style="color:#fab387;font-size:9px;font-weight:bold;margin-bottom:4px">🟠 IN PROGRESS (2)</div>
+            <div style="background:#313244;padding:5px;border-radius:3px;margin-bottom:3px;font-size:8px;border-left:2px solid #fab387">Review PR #42</div>
+            <div style="background:#313244;padding:5px;border-radius:3px;font-size:8px;border-left:2px solid #fab387">Update docs</div>
+          </div>
+          <div>
+            <div style="color:#a6e3a1;font-size:9px;font-weight:bold;margin-bottom:4px">🟢 DONE (5)</div>
+            <div style="background:#313244;padding:5px;border-radius:3px;margin-bottom:3px;font-size:8px;opacity:0.6">Setup CI/CD</div>
+            <div style="background:#313244;padding:5px;border-radius:3px;font-size:8px;opacity:0.6">Sprint planning</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>C — Kanban Board</h3>
+      <p>Hiển thị task theo cột: Todo / In Progress / Done. Trực quan cho quản lý workflow, nhưng phức tạp hơn để build.</p>
+    </div>
+  </div>
+
+</div>
+
+<p class="subtitle" style="margin-top:16px">Click vào layout bạn thích, hoặc cho tôi biết trong terminal.</p>

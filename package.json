@@ -1,0 +1,14 @@
+{
+  "name": "leonie-workspace",
+  "private": true,
+  "scripts": {
+    "dev":   "concurrently --names \"BACK,FRONT\" --prefix-colors \"cyan,green\" \"npm run back\" \"npm run front\"",
+    "front": "cd frontend && npm run dev",
+    "back":  "cd backend && uv run uvicorn main:app --reload --port 8000",
+    "build": "cd frontend && npm run build",
+    "start": "cd backend && uv run uvicorn main:app --port 8000"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}

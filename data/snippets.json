@@ -1,0 +1,98 @@
+[
+  {
+    "id": "py001",
+    "title": "SARIMAX forecast",
+    "category": "Python",
+    "code": "from statsmodels.tsa.statespace.sarimax import SARIMAX\n\nmodel = SARIMAX(\n    endog=df['value'],\n    order=(1, 1, 1),\n    seasonal_order=(1, 1, 1, 12),\n    enforce_stationarity=False,\n)\nresults = model.fit(disp=False)\npred = results.forecast(steps=12)\nprint(pred)",
+    "note": "Time-series forecast với seasonal pattern",
+    "created_at": "2026-05-08"
+  },
+  {
+    "id": "py002",
+    "title": "Auto-ARIMA (pmdarima)",
+    "category": "Python",
+    "code": "from pmdarima import auto_arima\n\nmodel = auto_arima(\n    df['value'],\n    seasonal=True, m=12,\n    stepwise=True, trace=True,\n)\nprint(model.summary())\npred = model.predict(n_periods=6)",
+    "note": "Tự động chọn p, d, q tốt nhất",
+    "created_at": "2026-05-08"
+  },
+  {
+    "id": "py003",
+    "title": "Pandas groupby pivot",
+    "category": "Python",
+    "code": "pivot = (\n    df\n    .groupby(['date', 'category'])['value']\n    .sum()\n    .unstack(fill_value=0)\n    .reset_index()\n)\npivot.columns.name = None\nprint(pivot.head())",
+    "note": "Groupby + pivot trong 1 chain",
+    "created_at": "2026-05-08"
+  },
+  {
+    "id": "py004",
+    "title": "Polars lazy scan parquet",
+    "category": "Python",
+    "code": "import polars as pl\n\ndf = (\n    pl.scan_parquet('data/*.parquet')\n    .filter(pl.col('date') >= '2025-01-01')\n    .group_by('category')\n    .agg(pl.col('value').sum().alias('total'))\n    .sort('total', descending=True)\n    .collect()\n)\nprint(df)",
+    "note": "Lazy evaluation — chỉ load data cần thiết",
+    "created_at": "2026-05-08"
+  },
+  {
+    "id": "py005",
+    "title": "Sklearn pipeline + cross-val",
+    "category": "Python",
+    "code": "from sklearn.pipeline import Pipeline\nfrom sklearn.preprocessing import StandardScaler\nfrom sklearn.ensemble import GradientBoostingClassifier\nfrom sklearn.model_selection import cross_val_score\n\npipe = Pipeline([\n    ('scaler', StandardScaler()),\n    ('model',  GradientBoostingClassifier(n_estimators=200)),\n])\nscores = cross_val_score(pipe, X, y, cv=5, scoring='roc_auc')\nprint(f'AUC: {scores.mean():.4f} ± {scores.std():.4f}')",
+    "note": "Chuẩn hoá + model trong 1 pipeline",
+    "created_at": "2026-05-08"
+  },
+  {
+    "id": "py006",
+    "title": "Plotly line chart",
+    "category": "Python",
+    "code": "import plotly.express as px\n\nfig = px.line(\n    df, x='date', y='value', color='category',\n    title='Trend over time',\n    template='plotly_dark',\n)\nfig.update_layout(legend_title_text='Category')\nfig.show()",
+    "note": "Dark theme line chart với plotly express",
+    "created_at": "2026-05-08"
+  },
+  {
+    "id": "sql001",
+    "title": "Window: running total",
+    "category": "SQL",
+    "code": "SELECT\n    date,\n    category,\n    value,\n    SUM(value) OVER (\n        PARTITION BY category\n        ORDER BY date\n        ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW\n    ) AS running_total\nFROM fact_table\nORDER BY category, date;",
+    "note": "Cumulative sum per category theo ngày",
+    "created_at": "2026-05-08"
+  },
+  {
+    "id": "sql002",
+    "title": "CTE + recursive hierarchy",
+    "category": "SQL",
+    "code": "WITH RECURSIVE hier AS (\n    SELECT id, name, parent_id, 0 AS level\n    FROM org_table\n    WHERE parent_id IS NULL\n\n    UNION ALL\n\n    SELECT c.id, c.name, c.parent_id, h.level + 1\n    FROM org_table c\n    JOIN hier h ON c.parent_id = h.id\n)\nSELECT * FROM hier ORDER BY level, name;",
+    "note": "Duyệt cây hierarchy với recursive CTE",
+    "created_at": "2026-05-08"
+  },
+  {
+    "id": "sql003",
+    "title": "Dynamic pivot (CASE WHEN)",
+    "category": "SQL",
+    "code": "SELECT\n    date,\n    SUM(CASE WHEN category = 'A' THEN value ELSE 0 END) AS cat_a,\n    SUM(CASE WHEN category = 'B' THEN value ELSE 0 END) AS cat_b,\n    SUM(CASE WHEN category = 'C' THEN value ELSE 0 END) AS cat_c\nFROM fact_table\nGROUP BY date\nORDER BY date;",
+    "note": "Manual pivot khi DB không có PIVOT function",
+    "created_at": "2026-05-08"
+  },
+  {
+    "id": "sql004",
+    "title": "Lag/Lead: month-over-month",
+    "category": "SQL",
+    "code": "SELECT\n    month,\n    revenue,\n    LAG(revenue, 1) OVER (ORDER BY month) AS prev_month,\n    ROUND(\n        100.0 * (revenue - LAG(revenue,1) OVER (ORDER BY month))\n        / NULLIF(LAG(revenue,1) OVER (ORDER BY month), 0), 2\n    ) AS mom_pct\nFROM monthly_revenue\nORDER BY month;",
+    "note": "Month-over-month growth %",
+    "created_at": "2026-05-08"
+  },
+  {
+    "id": "sh001",
+    "title": "Kill process on port",
+    "category": "Shell",
+    "code": "# Windows PowerShell\nnetstat -ano | findstr :<PORT>\ntaskkill /PID <PID> /F\n\n# Linux/Mac\nlsof -ti:<PORT> | xargs kill -9",
+    "note": "Giải phóng port đang bị chiếm",
+    "created_at": "2026-05-08"
+  },
+  {
+    "id": "sh002",
+    "title": "Git: undo last commit (keep files)",
+    "category": "Shell",
+    "code": "git reset --soft HEAD~1",
+    "note": "Undo commit nhưng giữ nguyên thay đổi đã staged",
+    "created_at": "2026-05-08"
+  }
+]

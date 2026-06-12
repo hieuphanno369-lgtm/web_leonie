@@ -1,0 +1,146 @@
+<h2>Thiết kế chi tiết — Task Tracker UI</h2>
+<p class="subtitle">Single Page · Dark Theme · Cards by Priority · AI Tools Tab</p>
+
+<div class="mockup" style="background:#0e1117;border-radius:8px;overflow:hidden;font-family:'Segoe UI',sans-serif">
+  <div class="mockup-header" style="background:#262730;padding:10px 16px;display:flex;align-items:center;justify-content:space-between">
+    <span style="color:#fafafa;font-weight:700;font-size:14px">📋 Task Tracker</span>
+    <span style="color:#a0a0b0;font-size:11px">hôm nay: Thứ Hai, 05/05/2026</span>
+  </div>
+
+  <!-- Tabs -->
+  <div style="background:#262730;padding:0 16px;display:flex;gap:0;border-bottom:1px solid #1c1c2e">
+    <div style="color:#ff4b4b;padding:8px 16px;font-size:12px;border-bottom:2px solid #ff4b4b;font-weight:600">📝 Tasks</div>
+    <div style="color:#a0a0b0;padding:8px 16px;font-size:12px">🤖 AI Tools</div>
+    <div style="color:#a0a0b0;padding:8px 16px;font-size:12px">⚙️ Cài đặt</div>
+  </div>
+
+  <div style="padding:12px 16px;background:#0e1117">
+
+    <!-- Stats row -->
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;margin-bottom:14px">
+      <div style="background:#262730;border-radius:6px;padding:10px;text-align:center">
+        <div style="color:#ff4b4b;font-size:20px;font-weight:700">2</div>
+        <div style="color:#a0a0b0;font-size:10px">🔴 Quá hạn</div>
+      </div>
+      <div style="background:#262730;border-radius:6px;padding:10px;text-align:center">
+        <div style="color:#ffa500;font-size:20px;font-weight:700">5</div>
+        <div style="color:#a0a0b0;font-size:10px">🟠 Đang làm</div>
+      </div>
+      <div style="background:#262730;border-radius:6px;padding:10px;text-align:center">
+        <div style="color:#00c853;font-size:20px;font-weight:700">12</div>
+        <div style="color:#a0a0b0;font-size:10px">🟢 Hoàn thành</div>
+      </div>
+      <div style="background:#262730;border-radius:6px;padding:10px;text-align:center">
+        <div style="color:#89b4fa;font-size:20px;font-weight:700">3</div>
+        <div style="color:#a0a0b0;font-size:10px">📅 Hôm nay</div>
+      </div>
+    </div>
+
+    <!-- Action bar -->
+    <div style="display:flex;gap:8px;margin-bottom:14px;align-items:center">
+      <div style="background:#ff4b4b;color:white;padding:5px 12px;border-radius:4px;font-size:11px;font-weight:600">+ Thêm task</div>
+      <div style="background:#262730;color:#a0a0b0;padding:5px 12px;border-radius:4px;font-size:11px">🔔 Gửi Discord</div>
+      <div style="flex:1;background:#262730;border-radius:4px;padding:5px 10px;color:#555;font-size:11px">🔍 Tìm kiếm task...</div>
+      <div style="background:#262730;color:#a0a0b0;padding:5px 12px;border-radius:4px;font-size:11px">Lọc ▾</div>
+    </div>
+
+    <!-- HIGH Priority -->
+    <div style="margin-bottom:12px">
+      <div style="color:#ff4b4b;font-size:11px;font-weight:700;margin-bottom:6px;text-transform:uppercase;letter-spacing:1px">🔴 High Priority</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
+        <div style="background:#1a1a2e;border:1px solid #ff4b4b33;border-left:3px solid #ff4b4b;border-radius:6px;padding:8px">
+          <div style="color:#fafafa;font-size:11px;font-weight:600;margin-bottom:3px">Báo cáo Q2 tháng 5</div>
+          <div style="color:#a0a0b0;font-size:9px">⏰ Hôm nay 17:00 · Nguyen Van A</div>
+          <div style="display:flex;gap:4px;margin-top:5px">
+            <span style="background:#ff4b4b22;color:#ff4b4b;padding:2px 6px;border-radius:10px;font-size:8px">HIGH</span>
+            <span style="background:#26273088;color:#a0a0b0;padding:2px 6px;border-radius:10px;font-size:8px">✏️ Sửa</span>
+            <span style="background:#26273088;color:#a0a0b0;padding:2px 6px;border-radius:10px;font-size:8px">✅ Done</span>
+          </div>
+        </div>
+        <div style="background:#1a1a2e;border:1px solid #ff4b4b33;border-left:3px solid #ff4b4b;border-radius:6px;padding:8px">
+          <div style="color:#fafafa;font-size:11px;font-weight:600;margin-bottom:3px">Fix lỗi production login</div>
+          <div style="color:#a0a0b0;font-size:9px">⏰ Hôm nay 12:00 · Quá hạn!</div>
+          <div style="display:flex;gap:4px;margin-top:5px">
+            <span style="background:#ff4b4b22;color:#ff4b4b;padding:2px 6px;border-radius:10px;font-size:8px">HIGH</span>
+            <span style="background:#26273088;color:#a0a0b0;padding:2px 6px;border-radius:10px;font-size:8px">✏️ Sửa</span>
+            <span style="background:#26273088;color:#a0a0b0;padding:2px 6px;border-radius:10px;font-size:8px">✅ Done</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MEDIUM Priority -->
+    <div style="margin-bottom:12px">
+      <div style="color:#ffa500;font-size:11px;font-weight:700;margin-bottom:6px;text-transform:uppercase;letter-spacing:1px">🟠 Medium Priority</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
+        <div style="background:#1a1a2e;border:1px solid #ffa50033;border-left:3px solid #ffa500;border-radius:6px;padding:8px">
+          <div style="color:#fafafa;font-size:11px;font-weight:600;margin-bottom:3px">Review code PR #42</div>
+          <div style="color:#a0a0b0;font-size:9px">⏰ 07/05 · 2 ngày nữa</div>
+          <div style="display:flex;gap:4px;margin-top:5px">
+            <span style="background:#ffa50022;color:#ffa500;padding:2px 6px;border-radius:10px;font-size:8px">MED</span>
+            <span style="background:#26273088;color:#a0a0b0;padding:2px 6px;border-radius:10px;font-size:8px">✏️ Sửa</span>
+          </div>
+        </div>
+        <div style="background:#1a1a2e;border:1px solid #ffa50033;border-left:3px solid #ffa500;border-radius:6px;padding:8px">
+          <div style="color:#fafafa;font-size:11px;font-weight:600;margin-bottom:3px">Họp standup tuần</div>
+          <div style="color:#a0a0b0;font-size:9px">⏰ 06/05 · Ngày mai</div>
+          <div style="display:flex;gap:4px;margin-top:5px">
+            <span style="background:#ffa50022;color:#ffa500;padding:2px 6px;border-radius:10px;font-size:8px">MED</span>
+            <span style="background:#26273088;color:#a0a0b0;padding:2px 6px;border-radius:10px;font-size:8px">✏️ Sửa</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LOW Priority collapsed -->
+    <div style="margin-bottom:8px">
+      <div style="color:#00c853;font-size:11px;font-weight:700;letter-spacing:1px">🟢 Low Priority <span style="color:#555;font-weight:400">(3 tasks) ▸</span></div>
+    </div>
+    <div>
+      <div style="color:#89b4fa;font-size:11px;font-weight:700;letter-spacing:1px">⚡ Ad-hoc <span style="color:#555;font-weight:400">(1 task) ▸</span></div>
+    </div>
+
+  </div>
+</div>
+
+<div style="margin-top:16px">
+  <h3>Tab AI Tools trông như thế nào</h3>
+</div>
+
+<div class="mockup" style="background:#0e1117;border-radius:8px;overflow:hidden;font-family:'Segoe UI',sans-serif;margin-top:8px">
+  <div class="mockup-header" style="background:#262730;padding:8px 16px">
+    <span style="color:#fafafa;font-size:13px;font-weight:700">📋 Task Tracker</span>
+  </div>
+  <div style="background:#262730;padding:0 16px;display:flex;border-bottom:1px solid #1c1c2e">
+    <div style="color:#a0a0b0;padding:8px 16px;font-size:12px">📝 Tasks</div>
+    <div style="color:#ff4b4b;padding:8px 16px;font-size:12px;border-bottom:2px solid #ff4b4b;font-weight:600">🤖 AI Tools</div>
+    <div style="color:#a0a0b0;padding:8px 16px;font-size:12px">⚙️ Cài đặt</div>
+  </div>
+  <div style="padding:12px 16px;background:#0e1117">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+      <div style="background:#262730;border-radius:6px;padding:12px">
+        <div style="color:#fafafa;font-size:12px;font-weight:600;margin-bottom:6px">📧 Email Digest hôm nay</div>
+        <div style="color:#a0a0b0;font-size:10px;margin-bottom:8px">Tóm tắt email từ Outlook, phân loại ưu tiên</div>
+        <div style="background:#ff4b4b;color:white;padding:5px 12px;border-radius:4px;font-size:11px;display:inline-block">▶ Tạo digest</div>
+      </div>
+      <div style="background:#262730;border-radius:6px;padding:12px">
+        <div style="color:#fafafa;font-size:12px;font-weight:600;margin-bottom:6px">✅ AI Checklist cho task</div>
+        <div style="color:#a0a0b0;font-size:10px;margin-bottom:8px">Chọn task → AI tự tạo checklist bước thực hiện</div>
+        <div style="background:#262730;border:1px solid #444;color:#a0a0b0;padding:4px 8px;border-radius:4px;font-size:10px;margin-bottom:6px">Chọn task... ▾</div>
+        <div style="background:#ff4b4b;color:white;padding:5px 12px;border-radius:4px;font-size:11px;display:inline-block">🤖 Tạo checklist</div>
+      </div>
+    </div>
+    <div style="background:#262730;border-radius:6px;padding:12px;margin-top:10px">
+      <div style="color:#fafafa;font-size:12px;font-weight:600;margin-bottom:6px">📋 Kết quả AI — "Báo cáo Q2 tháng 5"</div>
+      <div style="color:#a6e3a1;font-size:10px;line-height:1.6">
+        ☑ Thu thập số liệu doanh thu từ phòng kế toán<br>
+        ☐ Tổng hợp KPI từng phòng ban<br>
+        ☐ Tạo slide PowerPoint theo template<br>
+        ☐ Review với manager trước 16:00<br>
+        ☐ Gửi email cho stakeholders
+      </div>
+    </div>
+  </div>
+</div>
+
+<p class="subtitle" style="margin-top:16px">Thiết kế này trông ổn không? Cho tôi biết trong terminal để tiếp tục.</p>

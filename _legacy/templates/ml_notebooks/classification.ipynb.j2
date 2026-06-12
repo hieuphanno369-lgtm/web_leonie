@@ -1,0 +1,24 @@
+{
+ "nbformat": 4,
+ "nbformat_minor": 5,
+ "metadata": {
+  "kernelspec": {"display_name": "Python 3", "language": "python", "name": "python3"},
+  "language_info": {"name": "python", "version": "3.11.0"}
+ },
+ "cells": [
+  {"cell_type":"markdown","metadata":{},"source":["# Classification: {{ dataset_name }}\n","**Target:** `{{ target }}`  **Features:** {{ features | join(', ') }}  **Generated:** {{ timestamp }}"]},
+  {"cell_type":"markdown","metadata":{},"source":["## 1. Import Libraries"]},
+  {"cell_type":"code","metadata":{},"outputs":[],"source":["import polars as pl\nimport polars.selectors as cs\nimport xgboost as xgb\nfrom sklearn.linear_model import LogisticRegression\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.metrics import accuracy_score, f1_score, confusion_matrix\nimport plotly.express as px\nimport numpy as np\nprint('Libraries loaded.')"],"execution_count":null},
+  {"cell_type":"markdown","metadata":{},"source":["## 2. Load Data"]},
+  {"cell_type":"code","metadata":{},"outputs":[],"source":["df = pl.read_csv('{{ dataset_name }}', skip_rows={{ skip_rows }})\nprint(f'{df.height:,} rows x {df.width} cols')\ndf.head(5)"],"execution_count":null},
+  {"cell_type":"markdown","metadata":{},"source":["## 3. EDA"]},
+  {"cell_type":"code","metadata":{},"outputs":[],"source":["df.null_count()\ndf.select(cs.numeric()).describe()"],"execution_count":null},
+  {"cell_type":"markdown","metadata":{},"source":["## 4. Clean"]},
+  {"cell_type":"code","metadata":{},"outputs":[],"source":["df = df.unique()\nprint('Cleaned.')"],"execution_count":null},
+  {"cell_type":"markdown","metadata":{},"source":["## 5. Train — XGBoost vs Logistic Regression"]},
+  {"cell_type":"code","metadata":{},"outputs":[],"source":["X = df.select({{ features | tojson | replace('\"', '\\\"') }}).to_numpy()\ny = df['{{ target }}'].to_numpy()\nX_tr, X_te, y_tr, y_te = train_test_split(X, y, test_size=0.2, random_state=42)\nxg = xgb.XGBClassifier(n_estimators=200, random_state=42, verbosity=0, eval_metric='logloss')\nxg.fit(X_tr, y_tr)\ny_pred = xg.predict(X_te)\nlr = LogisticRegression(max_iter=500)\nlr.fit(X_tr, y_tr)\nprint('XGBoost Accuracy:', round(accuracy_score(y_te, y_pred), 4))"],"execution_count":null},
+  {"cell_type":"markdown","metadata":{},"source":["## 6. Results"]},
+  {"cell_type":"code","metadata":{},"outputs":[],"source":["cm = confusion_matrix(y_te, y_pred)\nfig = px.imshow(cm, text_auto=True, title='Confusion Matrix', template='plotly_dark', color_continuous_scale='Blues')\nfig.show()"],"execution_count":null},
+  {"cell_type":"code","metadata":{},"outputs":[],"source":["pl.DataFrame({'actual': y_te.tolist(), 'predicted': y_pred.tolist()}).write_csv('predictions.csv')\nprint('Saved.')"],"execution_count":null}
+ ]
+}

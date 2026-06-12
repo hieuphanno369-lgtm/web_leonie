@@ -1,0 +1,22 @@
+{
+ "nbformat": 4,
+ "nbformat_minor": 5,
+ "metadata": {
+  "kernelspec": {"display_name": "Python 3", "language": "python", "name": "python3"},
+  "language_info": {"name": "python", "version": "3.11.0"}
+ },
+ "cells": [
+  {"cell_type":"markdown","metadata":{},"source":["# Time Series Forecast: {{ dataset_name }}\n","**Target:** `{{ target }}`  **Horizon:** {{ horizon }} days  **Generated:** {{ timestamp }}"]},
+  {"cell_type":"markdown","metadata":{},"source":["## 1. Import Libraries"]},
+  {"cell_type":"code","metadata":{},"outputs":[],"source":["import polars as pl\nimport pmdarima as pm\nfrom statsmodels.tsa.statespace.sarimax import SARIMAX\nimport plotly.graph_objects as go\nimport numpy as np\nfrom sklearn.metrics import mean_squared_error\nprint('Libraries loaded.')"],"execution_count":null},
+  {"cell_type":"markdown","metadata":{},"source":["## 2. Load Data"]},
+  {"cell_type":"code","metadata":{},"outputs":[],"source":["df = pl.read_csv('{{ dataset_name }}', skip_rows={{ skip_rows }})\ndf = df.sort('{{ date_col }}')\nprint(f'{df.height:,} rows')"],"execution_count":null},
+  {"cell_type":"markdown","metadata":{},"source":["## 3. Auto ARIMA"]},
+  {"cell_type":"code","metadata":{},"outputs":[],"source":["y = df['{{ target }}'].to_numpy().astype(float)\nauto = pm.auto_arima(y, seasonal=True, m=12, stepwise=True, suppress_warnings=True, error_action='ignore')\nprint('Order:', auto.order, 'Seasonal:', auto.seasonal_order)"],"execution_count":null},
+  {"cell_type":"markdown","metadata":{},"source":["## 4. Train SARIMAX"]},
+  {"cell_type":"code","metadata":{},"outputs":[],"source":["model = SARIMAX(y, order=auto.order, seasonal_order=auto.seasonal_order)\nresult = model.fit(disp=False)\nprint(result.summary())"],"execution_count":null},
+  {"cell_type":"markdown","metadata":{},"source":["## 5. Forecast"]},
+  {"cell_type":"code","metadata":{},"outputs":[],"source":["forecast = result.get_forecast(steps={{ horizon }})\nmean_fc = forecast.predicted_mean\nci = forecast.conf_int(alpha=0.05)\nn = len(y)\nx_hist = list(range(n))\nx_fc = list(range(n, n + {{ horizon }}))\nci_arr = np.array(ci)\nfig = go.Figure()\nfig.add_trace(go.Scatter(x=x_hist, y=y.tolist(), name='Historical', mode='lines'))\nfig.add_trace(go.Scatter(x=x_fc, y=mean_fc.tolist(), name='Forecast', line=dict(color='orange')))\nfig.add_trace(go.Scatter(x=x_fc + x_fc[::-1], y=ci_arr[:,1].tolist() + ci_arr[:,0].tolist()[::-1], fill='toself', fillcolor='rgba(255,165,0,0.15)', line=dict(color='rgba(0,0,0,0)'), name='95% CI'))\nfig.update_layout(title='Forecast', template='plotly_dark')\nfig.show()"],"execution_count":null},
+  {"cell_type":"code","metadata":{},"outputs":[],"source":["pl.DataFrame({'forecast': mean_fc.tolist()}).write_csv('predictions.csv')\nprint('Saved.')"],"execution_count":null}
+ ]
+}

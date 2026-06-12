@@ -1,0 +1,47 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+*.venv
+.env
+.env.*
+*.egg-info/
+dist/
+build/
+
+# Node / frontend
+node_modules/
+frontend/dist/
+frontend/.vite/
+*.tsbuildinfo
+
+# Data (user uploads + runtime output - not for git)
+data/uploads/
+data/leonie.db
+data/ml_sessions/
+data/merge_sessions/
+data/vina_brew/
+data/email_history.json
+data/email_templates.json
+data/remind.log
+
+# OS
+.DS_Store
+desktop.ini
+Thumbs.db
+
+# IDE
+.vscode/settings.json
+.idea/
+
+# pytest
+.pytest_cache/
+htmlcov/
+.coverage
+
+# Agent / tooling state
+.superpowers/
+.claire/
+.claude/settings.local.json
+.claude/worktrees/

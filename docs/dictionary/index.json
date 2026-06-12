@@ -1,0 +1,124 @@
+{
+  "sections": [
+    {
+      "id": "00_welcome",
+      "title": "◈ Welcome",
+      "parent": null,
+      "category": "core",
+      "tags": ["overview", "map", "start", "giới thiệu", "bắt đầu"],
+      "pinned": true
+    },
+    {
+      "id": "01_data_studio",
+      "title": "◈ Data Studio",
+      "parent": null,
+      "category": "core",
+      "tags": ["data", "studio", "analysis", "root", "phân tích"],
+      "pinned": true
+    },
+    {
+      "id": "01a_data_explorer",
+      "title": "· Data Explorer",
+      "parent": "01_data_studio",
+      "category": "core",
+      "tags": ["csv", "excel", "parquet", "upload", "eda", "khám phá"],
+      "pinned": false
+    },
+    {
+      "id": "01b_sql_obsidian",
+      "title": "· SQL → Obsidian",
+      "parent": "01_data_studio",
+      "category": "core",
+      "tags": ["sql", "obsidian", "note", "analyze", "ghi chú"],
+      "pinned": false
+    },
+    {
+      "id": "01c_ml_studio",
+      "title": "· ⚗ ML Studio",
+      "parent": "01_data_studio",
+      "category": "ml",
+      "tags": ["ml", "forecast", "cluster", "xgboost", "sarimax", "prophet", "kmeans", "random forest", "pipeline", "dự đoán", "phân cụm"],
+      "pinned": true
+    },
+    {
+      "id": "01d_snippets",
+      "title": "· Snippets",
+      "parent": "01_data_studio",
+      "category": "core",
+      "tags": ["sql", "snippet", "reuse", "đoạn code"],
+      "pinned": false
+    },
+    {
+      "id": "02_tasks",
+      "title": "⬡ Tasks",
+      "parent": null,
+      "category": "tools",
+      "tags": ["task", "priority", "deadline", "checklist", "công việc"],
+      "pinned": false
+    },
+    {
+      "id": "03_performance",
+      "title": "◎ Performance",
+      "parent": null,
+      "category": "tools",
+      "tags": ["analytics", "chart", "burndown", "tag", "hiệu suất", "biểu đồ"],
+      "pinned": false
+    },
+    {
+      "id": "04_email",
+      "title": "◉ Email",
+      "parent": null,
+      "category": "tools",
+      "tags": ["email", "outlook", "digest", "classify", "reply", "phân loại"],
+      "pinned": false
+    },
+    {
+      "id": "05_focus",
+      "title": "⏱ Focus",
+      "parent": null,
+      "category": "tools",
+      "tags": ["focus", "pomodoro", "timer", "deep work", "tập trung"],
+      "pinned": false
+    },
+    {
+      "id": "06_pipeline",
+      "title": "◉ Pipeline",
+      "parent": null,
+      "category": "tools",
+      "tags": ["pipeline", "scheduler", "discord", "monitor", "lịch trình"],
+      "pinned": false
+    },
+    {
+      "id": "07_notebook",
+      "title": "⬡ Notebook",
+      "parent": null,
+      "category": "tools",
+      "tags": ["notebook", "python", "jupyter", "meeting notes", "ghi chú"],
+      "pinned": false
+    },
+    {
+      "id": "08_config",
+      "title": "⊛ Config",
+      "parent": null,
+      "category": "tools",
+      "tags": ["config", "env", "settings", "api key", "cấu hình"],
+      "pinned": false
+    },
+    {
+      "id": "90_glossary",
+      "title": "📚 Glossary",
+      "parent": null,
+      "category": "ml",
+      "tags": ["mape", "rmse", "silhouette", "ci", "confidence interval", "overfitting", "feature importance", "thuật ngữ"],
+      "pinned": false
+    },
+    {
+      "id": "91_shortcuts",
+      "title": "⌨ Shortcuts & Tips",
+      "parent": null,
+      "category": "tips",
+      "tags": ["shortcut", "tip", "keyboard", "trick", "mẹo", "phím tắt"],
+      "pinned": false
+    }
+  ]
+}

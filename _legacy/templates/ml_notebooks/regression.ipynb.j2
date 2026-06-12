@@ -1,0 +1,27 @@
+{
+ "nbformat": 4,
+ "nbformat_minor": 5,
+ "metadata": {
+  "kernelspec": {"display_name": "Python 3", "language": "python", "name": "python3"},
+  "language_info": {"name": "python", "version": "3.11.0"}
+ },
+ "cells": [
+  {"cell_type":"markdown","metadata":{},"source":["# Regression Analysis: {{ dataset_name }}\n","**Target:** `{{ target }}`  \n","**Features:** {{ features | join(', ') }}  \n","**Generated:** {{ timestamp }}"]},
+  {"cell_type":"markdown","metadata":{},"source":["## 1. Import Libraries"]},
+  {"cell_type":"code","metadata":{},"outputs":[],"source":["import polars as pl\nimport polars.selectors as cs\nimport xgboost as xgb\nfrom sklearn.linear_model import LinearRegression\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.metrics import mean_squared_error, r2_score\nimport plotly.express as px\nimport numpy as np\nprint('Libraries loaded.')"],"execution_count":null},
+  {"cell_type":"markdown","metadata":{},"source":["## 2. Load Data\n","Skipping {{ skip_rows }} metadata rows."]},
+  {"cell_type":"code","metadata":{},"outputs":[],"source":["df = pl.read_csv('{{ dataset_name }}', skip_rows={{ skip_rows }}, infer_schema_length=1000)\nprint(f'{df.height:,} rows x {df.width} cols')\ndf.head(5)"],"execution_count":null},
+  {"cell_type":"markdown","metadata":{},"source":["## 3. EDA"]},
+  {"cell_type":"code","metadata":{},"outputs":[],"source":["df.null_count()"],"execution_count":null},
+  {"cell_type":"code","metadata":{},"outputs":[],"source":["df.select(cs.numeric()).describe()"],"execution_count":null},
+  {"cell_type":"markdown","metadata":{},"source":["## 4. Clean\n","Steps applied:\n","{% for step in clean_steps %}- {{ step }}\n{% endfor %}"]},
+  {"cell_type":"code","metadata":{},"outputs":[],"source":["df = df.unique()\nfor col in df.columns:\n    if df[col].null_count() == 0: continue\n    if df[col].dtype in (pl.Float64, pl.Int64):\n        df = df.with_columns(pl.col(col).fill_null(df[col].drop_nulls().median()))\nprint('Cleaned.')"],"execution_count":null},
+  {"cell_type":"markdown","metadata":{},"source":["## 5. Feature Selection\n","Features: {{ features | join(', ') }}"]},
+  {"cell_type":"code","metadata":{},"outputs":[],"source":["from sklearn.ensemble import RandomForestRegressor\nX_all = df.select({{ features | tojson | replace('\"', '\\\"') }}).to_numpy()\ny_all = df['{{ target }}'].to_numpy()\nrf = RandomForestRegressor(n_estimators=50, random_state=42)\nrf.fit(X_all, y_all)\nfor f, imp in sorted(zip({{ features | tojson | replace('\"', '\\\"') }}, rf.feature_importances_), key=lambda x: -x[1]):\n    print(f'{f}: {imp:.4f}')"],"execution_count":null},
+  {"cell_type":"markdown","metadata":{},"source":["## 6. Train — XGBoost vs Linear Regression"]},
+  {"cell_type":"code","metadata":{},"outputs":[],"source":["X = df.select({{ features | tojson | replace('\"', '\\\"') }}).to_numpy()\ny = df['{{ target }}'].to_numpy()\nX_tr, X_te, y_tr, y_te = train_test_split(X, y, test_size=0.2, random_state=42)\nxgb_m = xgb.XGBRegressor(n_estimators=200, learning_rate=0.05, random_state=42, verbosity=0)\nxgb_m.fit(X_tr, y_tr)\ny_pred = xgb_m.predict(X_te)\nlr = LinearRegression()\nlr.fit(X_tr, y_tr)\ny_pred_lr = lr.predict(X_te)\nprint('XGBoost R2:', round(r2_score(y_te, y_pred), 4))\nprint('Linear  R2:', round(r2_score(y_te, y_pred_lr), 4))"],"execution_count":null},
+  {"cell_type":"markdown","metadata":{},"source":["## 7. Results"]},
+  {"cell_type":"code","metadata":{},"outputs":[],"source":["fig = px.scatter(x=y_te, y=y_pred, labels={'x':'Actual','y':'Predicted'}, title='Actual vs Predicted', template='plotly_dark')\nfig.add_shape(type='line', x0=y_te.min(), y0=y_te.min(), x1=y_te.max(), y1=y_te.max(), line=dict(color='red', dash='dash'))\nfig.show()"],"execution_count":null},
+  {"cell_type":"code","metadata":{},"outputs":[],"source":["pl.DataFrame({'actual': y_te.tolist(), 'predicted': y_pred.tolist()}).write_csv('predictions.csv')\nprint('Saved.')"],"execution_count":null}
+ ]
+}
